@@ -2,7 +2,7 @@ package com.sqli.isc.iut.courses.cucumber;
 
 import java.util.Date;
 
-public class Album {
+public class Album  {
 
 	private String title;
 	private String artistOrBand;

@@ -9,6 +9,7 @@ import io.cucumber.java.en.When;
 public class CalculatorSteps {
 	private Calculator calculator;
 
+
 	@Given("^a calculator I just turned on$")
 	public void setup() {
 		calculator = new Calculator();
