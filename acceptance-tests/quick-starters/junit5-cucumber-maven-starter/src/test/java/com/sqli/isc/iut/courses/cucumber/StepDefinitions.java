@@ -91,9 +91,16 @@ public class StepDefinitions {
 
     @Then("Mr. Pignon is happy because they only had one drink")
     public void mr_pignon_is_happy_because_they_only_had_one_drink() {
-        assertTrue(bar.hasOnlyOrderedOnce("Mr. Pignon"), "Mr. Pignon should be happy because he only had one drink");
+        assertFalse(bar.isSad("Mr. Pignon"), "Mr. Pignon should be happy because he only had one drink");
     }
+    @Then("They check their individual bills")
+    public void they_check_their_individual_bills() {
+        int billPignon = bar.getBill("Mr. Pignon");
+        int billLeblanc = bar.getBill("Mr. Leblanc");
 
+        assertEquals(10, billPignon, "Mr. Pignon should have a total bill of 10€.");
+        assertEquals(10, billLeblanc, "Mr. Leblanc should have a total bill of 10€.");
+    }
     @When("Mr. Pignon pays his bill")
     public void mr_pignon_pays_his_bill() {
         boolean paymentSuccess = bar.payBill("Mr. Pignon");
@@ -102,12 +109,12 @@ public class StepDefinitions {
 
     @When("Mr. Leblanc insists on ordering another cocktail of the month")
     public void mr_leblanc_insists_on_ordering_another_cocktail_of_the_month() {
-        bar.order("cocktail", 1, 10);
+        bar.order("Mr. Pignon", 1, 10);
     }
 
     @When("He orders {int} more cocktails for his bill")
     public void he_orders_more_cocktails_for_his_bill(Integer count) {
-        bar.order("cocktail", count, 10);
+        bar.order("Mr. Leblanc", count, 10);
     }
 
     @Then("At the end of his drinks, Mr. Leblanc checks his bill and pays")
@@ -119,6 +126,6 @@ public class StepDefinitions {
 
     @Then("Mr. Pignon is sad because drinking more than one cocktail makes him sick")
     public void mr_pignon_is_sad_because_drinking_more_than_one_cocktail_makes_him_sick() {
-        assertFalse(bar.hasOnlyOrderedOnce("Mr. Pignon"), "Mr. Pignon should be sad if he drinks more than one cocktail");
+        assertTrue(bar.isSad("Mr. Pignon"), "Mr. Pignon should be sad if he drinks more than one cocktail");
     }
 }
